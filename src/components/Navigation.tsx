@@ -1,9 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { Menu, X, Globe, Heart } from "lucide-react";
+import { DonationDialog } from "./DonationDialog";
 
 export const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isDonationOpen, setIsDonationOpen] = useState(false);
 
   const menuItems = [
     { label: "About", href: "#about" },
@@ -49,7 +51,12 @@ export const Navigation = () => {
                 {item.label}
               </button>
             ))}
-            <Button variant="default" size="sm" className="ml-4">
+            <Button 
+              variant="default" 
+              size="sm" 
+              className="ml-4"
+              onClick={() => setIsDonationOpen(true)}
+            >
               <Heart className="w-4 h-4 mr-2" />
               Donate
             </Button>
@@ -85,7 +92,15 @@ export const Navigation = () => {
                 </button>
               ))}
               <div className="px-3 pt-4">
-                <Button variant="default" size="sm" className="w-full">
+                <Button 
+                  variant="default" 
+                  size="sm" 
+                  className="w-full"
+                  onClick={() => {
+                    setIsDonationOpen(true);
+                    setIsMenuOpen(false);
+                  }}
+                >
                   <Heart className="w-4 h-4 mr-2" />
                   Donate
                 </Button>
@@ -94,6 +109,11 @@ export const Navigation = () => {
           </div>
         )}
       </div>
+      
+      <DonationDialog 
+        open={isDonationOpen} 
+        onOpenChange={setIsDonationOpen} 
+      />
     </nav>
   );
 };
