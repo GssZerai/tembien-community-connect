@@ -1,7 +1,7 @@
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Heart, Users, Globe, Target, Award, Shield } from "lucide-react";
-import communityImage from "@/assets/community-meeting.jpg";
+import communityImage from "@/assets/mount-gumawta-community.jpg";
 
 export const About = () => {
   const values = [

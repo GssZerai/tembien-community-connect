@@ -2,7 +2,7 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { BookOpen, Sprout, Building, Heart, ArrowRight } from "lucide-react";
-import programsImage from "@/assets/development-programs.jpg";
+import programsImage from "@/assets/alaji-basalts-farming.jpg";
 
 export const Programs = () => {
   const programs = [
