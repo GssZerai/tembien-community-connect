@@ -1,59 +1,53 @@
+import { useState, useEffect } from "react";
+import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { MapPin, Users, Calendar, Globe } from "lucide-react";
 
+interface Chapter {
+  id: string;
+  name: string;
+  location: string;
+  members: number;
+  established: string;
+  status: 'Active' | 'Developing' | 'Inactive';
+  description: string;
+}
+
 export const Chapters = () => {
-  const chapters = [
-    {
-      name: "Mekelle Chapter",
-      location: "Mekelle, Tigray",
-      members: 150,
-      established: "2020",
-      status: "Active",
-      description: "Our largest chapter serving the regional capital with focus on education and healthcare initiatives."
-    },
-    {
-      name: "Addis Ababa Chapter", 
-      location: "Addis Ababa, Ethiopia",
-      members: 95,
-      established: "2021",
-      status: "Active",
-      description: "Connecting diaspora members and coordinating with federal government programs."
-    },
-    {
-      name: "North America Chapter",
-      location: "USA & Canada",
-      members: 80,
-      established: "2019",
-      status: "Active", 
-      description: "International chapter focused on fundraising and advocacy for development programs."
-    },
-    {
-      name: "Europe Chapter",
-      location: "Germany, UK, Norway",
-      members: 65,
-      established: "2020",
-      status: "Active",
-      description: "European diaspora members supporting education scholarships and capacity building."
-    },
-    {
-      name: "Shire Chapter",
-      location: "Shire, Tigray",
-      members: 45,
-      established: "2022",
-      status: "Developing",
-      description: "Newly established chapter focusing on agricultural development and community welfare."
-    },
-    {
-      name: "Australia Chapter",
-      location: "Melbourne & Sydney",
-      members: 35,
-      established: "2023",
-      status: "Developing",
-      description: "Latest international chapter working on technology transfer and innovation programs."
+  const [chapters, setChapters] = useState<Chapter[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchChapters();
+  }, []);
+
+  const fetchChapters = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('chapters')
+        .select('*')
+        .order('name');
+
+      if (error) throw error;
+      setChapters((data as Chapter[]) || []);
+    } catch (error) {
+      console.error('Error fetching chapters:', error);
+    } finally {
+      setLoading(false);
     }
-  ];
+  };
+
+  if (loading) {
+    return (
+      <section id="chapters" className="py-20 bg-background">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center">Loading chapters...</div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section id="chapters" className="py-20 bg-background">

@@ -60,6 +60,14 @@ export const Navigation = () => {
               <Heart className="w-4 h-4 mr-2" />
               Donate
             </Button>
+            <Button 
+              variant="outline" 
+              size="sm" 
+              onClick={() => window.location.href = '#/auth'} 
+              className="text-sm"
+            >
+              Admin
+            </Button>
           </div>
 
           {/* Mobile Menu Button */}
@@ -95,7 +103,7 @@ export const Navigation = () => {
                 <Button 
                   variant="default" 
                   size="sm" 
-                  className="w-full"
+                  className="w-full mb-2"
                   onClick={() => {
                     setIsDonationOpen(true);
                     setIsMenuOpen(false);
@@ -103,6 +111,17 @@ export const Navigation = () => {
                 >
                   <Heart className="w-4 h-4 mr-2" />
                   Donate
+                </Button>
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  className="w-full"
+                  onClick={() => {
+                    window.location.href = '#/auth';
+                    setIsMenuOpen(false);
+                  }}
+                >
+                  Admin
                 </Button>
               </div>
             </div>
